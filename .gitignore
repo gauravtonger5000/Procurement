@@ -1,13 +1,4 @@
-# Maven target folder
-target/
-
-# Java compiled class files
-*.class
-
-# IDE files
-.idea/
-.vscode/
-*.iml
-
-# WebDriver
-chromedriver.exe
+/target
+.classpath
+.project
+.settings
