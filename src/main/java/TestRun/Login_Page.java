@@ -1,9 +1,7 @@
-package ABCPackage;
+package TestRun;
 
 import java.time.Duration;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,17 +10,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login_Page {
-	
     WebDriver driver;
-    // we create the constructor of this class and pass the driver reference 
-    public Login_Page(WebDriver driver)
-    {
+    public Login_Page(WebDriver driver)  {
     	this.driver = driver;
     	PageFactory.initElements(driver, this);
     }    
- 
-    public void username(String username)
-    {
+    public void username(String username)   {
+    	System.out.println("Get username Successfully");
+
     	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     	try {
 	    	WebElement usernameField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@formcontrolname=\"UserName\"]")));
@@ -32,10 +27,11 @@ public class Login_Page {
 	    	usernameField.sendKeys(username);
     	}
     }
-    public void password(String password)
-    {
+    public void password(String password)   {
     	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     	try {
+        	System.out.println("Get Password Successfully");
+
 	    	WebElement passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@formcontrolname=\"Pwd\"]")));
 	    	passwordField.sendKeys(password);
     	}catch(org.openqa.selenium.ElementClickInterceptedException e) {
@@ -49,11 +45,12 @@ public class Login_Page {
 	    	WebElement pwdAlert = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),\"Your password has been changed after\")]")));
 	    	String text =pwdAlert.getText();
     		ExtentReportListener.log(text, "Warning");
+    		WebElement ignorePasswordChangeMsg = driver.findElement(By.xpath("//button[text()=\"Cancel\"]"));
+			ignorePasswordChangeMsg.click();
     	}catch(TimeoutException e) {
     	}
     }
-    public void loginButton()
-    {
+    public void loginButton()   {
     	try {
 	    	WebElement loginBtn = driver.findElement(By.xpath("//button[@class=\"btn btn-block btn-primary\"]"));
 	    	loginBtn.click();
@@ -62,34 +59,12 @@ public class Login_Page {
 	    	loginBtn.click();
     	}
     }
-    public void usernamePasswordAlert() throws InterruptedException {
-    	Thread.sleep(1000);
-    	try {
-	    	try {
-				driver.findElement(By.xpath("//p[normalize-space(text())=\"Please enter user name\"]"));
-				throw new RuntimeException("Please enter username.");
-	    	}catch(NoSuchElementException e) {
-			}
-			try {
-	    		driver.findElement(By.xpath("//p[normalize-space(text())=\"Please enter password\"]"));
-				throw new RuntimeException("Please enter Password.");
-		    }catch(NoSuchElementException e) {
-			}
-			try {
-				driver.findElement(By.xpath("//p[normalize-space(text())=\"Please check username and password\"]"));
-				throw new RuntimeException("Please check username and Password.");
-			}catch(NoSuchElementException e) {
-			}
-    	}catch(RuntimeException e) {
-    		throw e;
-    	}
-    }
-    public void login(String username,String password) throws InterruptedException
-    {
+    public void login(String username,String password)    {
     	username(username);
     	password(password);
     	loginButton();
-    	//passwordChange();
-    	usernamePasswordAlert();
+    	System.out.println("Login Successfully");
+    	passwordChange();
     }
+    
 }

@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="ABCPackage.mainClass">
+      <class name="TestRun.MainClass1">
         <methods>
-          <include name="test"/>
-          <include name="setup"/>
           <include name="tearDown"/>
+          <include name="NewEnquiry"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- ABCPackage.mainClass -->
+      </class> <!-- TestRun.MainClass1 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
