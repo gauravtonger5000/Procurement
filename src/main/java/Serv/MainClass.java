@@ -1,4 +1,4 @@
-package OLX;
+package Serv;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,10 +32,10 @@ public class MainClass {
 		driver = dc.browserSel();
 
 //		excelFilePath = System.getProperty("excelFilePath", "src/main/resources/OlxData.xlsx");
-		excelFilePath = System.getProperty("excelFilePath", "C:\\Users\\ACS-90\\Downloads\\OlxData.xlsx");
+		excelFilePath = System.getProperty("excelFilePath", "C:\\Users\\ACS-90\\Downloads\\Serv.xlsx");
 
 		extentReportPath = System.getProperty("extentReportPath",
-				"C:\\Users\\ACS-90\\Downloads\\OLX_Report.html");
+				"C:\\Users\\ACS-90\\Downloads\\Serv_Report.html");
 
 		if (excelFilePath == null || excelFilePath.isEmpty()) {
 			throw new RuntimeException("Excel file path not provided!");
@@ -50,73 +50,61 @@ public class MainClass {
 
 	@Test
 	public void test() throws InterruptedException, FileNotFoundException, IOException {
-		ExtentTest test = reportListener.startTest("OLX Report");
-		TestClass tc = new TestClass(driver);
+		ExtentTest test = reportListener.startTest("Serv Report");
+		Login_Page lp = new Login_Page(driver);
+		ServPage sp = new ServPage(driver);
 		File excelFile = new File(excelFilePath);
 		FileInputStream fis = new FileInputStream(excelFile);
 		Workbook workbook = new XSSFWorkbook(fis);
 		DataFormatter formatter = new DataFormatter();
 		Sheet sheet1 = workbook.getSheet("Credentials");
-		
-		Sheet sheet2 = workbook.getSheet("Data");
 		Row row1 = sheet1.getRow(1);
+		String username = formatter.formatCellValue(row1.getCell(1));
+		String password = formatter.formatCellValue(row1.getCell(2));
+		Sheet sheet2 = workbook.getSheet("Data");
 		String url = formatter.formatCellValue(row1.getCell(0));
 		driver.get(url);
-		for (int i = 1; i <= 1; i++) {
-			Row row = sheet1.getRow(i);
-			Row row2 = sheet2.getRow(i);
+		try {
+			lp.login(username, password);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			reportListener.log(e.getMessage(), "FAIL");
+		}
+		reportListener.flushReport();
 
-			String username = formatter.formatCellValue(row.getCell(1));
-			String password = formatter.formatCellValue(row.getCell(2));
-			
-			String make = formatter.formatCellValue(row2.getCell(0));
-			String model = formatter.formatCellValue(row2.getCell(1));
-			String variant = formatter.formatCellValue(row2.getCell(2));
-			String year = formatter.formatCellValue(row2.getCell(3));
-			String fuelType = formatter.formatCellValue(row2.getCell(4));
-			String transmission = formatter.formatCellValue(row2.getCell(5));
-			String mileage = formatter.formatCellValue(row2.getCell(6));
-			String owners = formatter.formatCellValue(row2.getCell(7));
-			String title = formatter.formatCellValue(row2.getCell(8));
-			String description = formatter.formatCellValue(row2.getCell(9));
-			String price = formatter.formatCellValue(row2.getCell(10));
-			String state = formatter.formatCellValue(row2.getCell(11));
-			String city = formatter.formatCellValue(row2.getCell(12));
-			String locality = formatter.formatCellValue(row2.getCell(13));
-			String file_path = formatter.formatCellValue(row2.getCell(14));
+		for (int i = 1; i <= sheet2.getLastRowNum(); i++) {
+			Row row = sheet2.getRow(i);
 
-			System.out.println("Make: " + make);
-			System.out.println("Model: " + model);
-			System.out.println("Variant: " + variant);
-			System.out.println("Year: " + year);
-			System.out.println("Fuel Type: " + fuelType);
-			System.out.println("Transmission: " + transmission);
-			System.out.println("Mileage: " + mileage);
-			System.out.println("Owners: " + owners);
-			System.out.println("Title: " + title);
-			System.out.println("Description: " + description);
-			System.out.println("Price: " + price);
+//			String username = formatter.formatCellValue(row1.getCell(1));
+//			String password = formatter.formatCellValue(row1.getCell(2));
 			
+			String subject = formatter.formatCellValue(row.getCell(0));
+			String remarks = formatter.formatCellValue(row.getCell(1));
+			String product_category = formatter.formatCellValue(row.getCell(2));
+			String product = formatter.formatCellValue(row.getCell(3));
+			String ticket_category = formatter.formatCellValue(row.getCell(4));
+			String ticket_sub_category = formatter.formatCellValue(row.getCell(5));
+			String assigned_to = formatter.formatCellValue(row.getCell(6));
+			String sprint_month = formatter.formatCellValue(row.getCell(7));
+			String priority = formatter.formatCellValue(row.getCell(8));
+
+
 			try {
-				tc.details();
-				tc.enterMobileNo(username);
-				tc.nextBtn();
-				tc.password(password);
-				tc.loginBtn();
-				tc.clickSellButton();
-				tc.clickCarsButton();
-				tc.clickCarsItem();
-				Thread.sleep(4000);
-				tc.selectMakeHuman(make);
-				Thread.sleep(500);
-				tc.selectModelHuman(model);
-				tc.selectVariant1(variant);
-				tc.fillCarDetails(make, model, variant, year, fuelType, transmission, mileage, owners, title, description, price);
-				tc.uploadImage(file_path);
-
-				tc.selectStateHuman(state);
-				tc.selectCityHuman(city);
-				tc.selectLocalityHuman(locality);
+//				lp.login(username, password);
+				sp.clickNewTicket();
+				sp.clickInternal();
+				sp.enterSubject(subject);
+				sp.enterRemarks(remarks);
+				sp.selectProductCategory(product_category);
+				sp.selectProduct(product);
+				sp.selectTicketCategory(ticket_category);
+				sp.selectTicketSubCategory(ticket_sub_category);
+				sp.selectAssignTo(assigned_to);
+				sp.selectSprintMonth(sprint_month);
+				sp.selectPriority(priority);
+				//sp.clickSubmitButton();
+				System.out.println("Ticket successfully created for Row No. "+i);
+				test.pass("Ticket successfully created for Row No. "+i);
 			} catch (Exception e) {
 				System.out.println(e.getMessage() + " in Row No. " + i);
 				reportListener.log(e.getMessage() + " in Row No. " + i, "FAIL");
