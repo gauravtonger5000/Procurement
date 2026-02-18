@@ -92,8 +92,13 @@ public class MainClass {
 		Sheet sheet5 = workbook.getSheet("Price Discovery");
 
 		for (int i = 5; i <= sheet2.getLastRowNum(); i++) {
-			Row row = sheet2.getRow(i);
-			Row row7 = sheet4.getRow(i);
+			  Row row = sheet2.getRow(i);
+			    if (row == null) continue;   // ← THIS fixes your NPE
+
+			    Row row7 = sheet4.getRow(i);
+			    if (row7 == null) continue;
+//			Row row = sheet2.getRow(i);
+//			Row row7 = sheet4.getRow(i);
 			String username = formatter.formatCellValue(row.getCell(0));
 			String password = formatter.formatCellValue(row.getCell(1));
 
