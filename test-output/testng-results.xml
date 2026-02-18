@@ -2,23 +2,23 @@
 <testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-02-18T15:25:05 IST" name="Suite" finished-at="2026-02-18T15:26:02 IST" duration-ms="57802">
+  <suite started-at="2026-02-18T15:34:37 IST" name="Default suite" finished-at="2026-02-18T15:35:35 IST" duration-ms="57459">
     <groups>
     </groups>
-    <test started-at="2026-02-18T15:25:05 IST" name="Test" finished-at="2026-02-18T15:26:02 IST" duration-ms="57802">
+    <test started-at="2026-02-18T15:34:37 IST" name="Default test" finished-at="2026-02-18T15:35:35 IST" duration-ms="57459">
       <class name="ProcurementHeadless.MainClass">
-        <test-method is-config="true" signature="init()[pri:0, instance:ProcurementHeadless.MainClass@4dbb42b7]" started-at="2026-02-18T15:25:05 IST" name="init" finished-at="2026-02-18T15:25:06 IST" duration-ms="1940" status="PASS">
+        <test-method is-config="true" signature="init()[pri:0, instance:ProcurementHeadless.MainClass@4dbb42b7]" started-at="2026-02-18T15:34:37 IST" name="init" finished-at="2026-02-18T15:34:39 IST" duration-ms="2000" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- init -->
-        <test-method signature="NewEnquiry()[pri:0, instance:ProcurementHeadless.MainClass@4dbb42b7]" started-at="2026-02-18T15:25:06 IST" name="NewEnquiry" finished-at="2026-02-18T15:26:02 IST" duration-ms="55589" status="FAIL">
+        <test-method signature="NewEnquiry()[pri:0, instance:ProcurementHeadless.MainClass@4dbb42b7]" started-at="2026-02-18T15:34:39 IST" name="NewEnquiry" finished-at="2026-02-18T15:35:34 IST" duration-ms="55168" status="FAIL">
           <exception class="java.lang.NullPointerException">
             <message>
               <![CDATA[Cannot invoke "org.apache.poi.ss.usermodel.Row.getCell(int)" because "row" is null]]>
             </message>
             <full-stacktrace>
               <![CDATA[java.lang.NullPointerException: Cannot invoke "org.apache.poi.ss.usermodel.Row.getCell(int)" because "row" is null
-at ProcurementHeadless.MainClass.NewEnquiry(MainClass.java:93)
+at ProcurementHeadless.MainClass.NewEnquiry(MainClass.java:96)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -53,11 +53,11 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NewEnquiry -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:ProcurementHeadless.MainClass@4dbb42b7]" started-at="2026-02-18T15:26:02 IST" name="tearDown" finished-at="2026-02-18T15:26:02 IST" duration-ms="227" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ProcurementHeadless.MainClass@4dbb42b7]" started-at="2026-02-18T15:35:34 IST" name="tearDown" finished-at="2026-02-18T15:35:35 IST" duration-ms="247" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- ProcurementHeadless.MainClass -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

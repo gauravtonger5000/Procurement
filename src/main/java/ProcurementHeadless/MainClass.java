@@ -44,9 +44,9 @@ public class MainClass {
 
 	public void setup() throws IOException {
 //	    Get the Excel file path from system properties
-		excelFilePath = System.getProperty("excelFilePath", "C:\\Users\\ACS-90\\Downloads\\ProcurementNew.xlsx");
+		excelFilePath = System.getProperty("excelFilePath", "./src/main/resources\\ProcurementHL.xlsx");
 		extentReportPath = System.getProperty("extentReportPath",
-				"C:\\Users\\ACS-90\\Downloads\\Procurement Report.html"); // Get the Extent Report path
+				"C:\\Users\\ACS-90\\Downloads\\Procurement Report Headless.html"); // Get the Extent Report path
 //    	excelFilePath = System.getProperty("excelFilePath", "");
 //    	extentReportPath = System.getProperty("extentReportPath", ""); // Get the Extent Report path    
 
