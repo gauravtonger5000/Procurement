@@ -75,19 +75,41 @@ public class NewEnquiry {
 	    }
 	}
 
-	 public static void captureAndSaveScreenshot(WebDriver driver, String fileName) throws IOException {
+//	 public static void captureAndSaveScreenshot(WebDriver driver, String fileName) throws IOException {
+//
+//	        // Take screenshot
+//	        File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+////	        TakesScreenshot ts = (TakesScreenshot)driver;
+////	        ts.getScreenshotAs(OutputType.FILE);
+//	        // Downloads folder path
+//	        String downloadPath = System.getProperty("user.home") + "\\Downloads\\" + fileName + ".png";
+//
+//	        File dest = new File(downloadPath);
+//	        Files.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//	        System.out.println("Screenshot saved at: " + downloadPath);
+//	    }
+	 public static void captureAndSaveScreenshot(WebDriver driver, String fileName) {
+		    try {
+		        File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
-	        // Take screenshot
-	        File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//	        TakesScreenshot ts = (TakesScreenshot)driver;
-//	        ts.getScreenshotAs(OutputType.FILE);
-	        // Downloads folder path
-	        String downloadPath = System.getProperty("user.home") + "\\Downloads\\" + fileName + ".png";
+		        String screenshotDir = System.getProperty("user.dir")
+		                + File.separator + "screenshots";
 
-	        File dest = new File(downloadPath);
-	        Files.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
-	        System.out.println("Screenshot saved at: " + downloadPath);
-	    }
+		        File dir = new File(screenshotDir);
+		        if (!dir.exists()) {
+		            dir.mkdirs();   // create folder if not exists
+		        }
+
+		        File dest = new File(screenshotDir + File.separator + fileName + ".png");
+		        Files.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+		        System.out.println("Screenshot saved: " + dest.getAbsolutePath());
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		}
+
 	public void waitForLoadItemToDisappear() {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
