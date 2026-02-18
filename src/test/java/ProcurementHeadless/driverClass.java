@@ -1,57 +1,38 @@
 package ProcurementHeadless;
 
-import java.io.File;
-import java.util.Optional;
-
 import org.apache.poi.EncryptedDocumentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.devtools.DevTools;
 
 public class driverClass {
-	WebDriver driver;
-	public driverClass(WebDriver driver) { this.driver = driver; }
-	public static WebDriver browserSel() throws EncryptedDocumentException, InterruptedException {
 
-		String browserName = System.getProperty("browser", "Web Chrome");
-		WebDriver driver = null;
+    public static WebDriver browserSel() throws EncryptedDocumentException, InterruptedException {
 
-		switch (browserName) {
+        String browserName = System.getProperty("browser", "Web Chrome");
+        WebDriver driver;
 
-		case "Web Chrome": {
+        switch (browserName) {
 
-			String userHome = System.getProperty("user.home");
-			String downloadsFolderPath = userHome + File.separator + "Downloads";
-			String chromeDriverPath = downloadsFolderPath + File.separator + "chromedriver.exe";
+            case "Web Chrome":
 
-			File chromeDriverFile = new File(chromeDriverPath);
-			if (!chromeDriverFile.exists()) {
-				throw new RuntimeException("ChromeDriver not found: " + chromeDriverPath);
-			}
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments(
+                        "--headless=new",
+                        "--disable-gpu",
+                        "--window-size=1920,1080",
+                        "--disable-notifications",
+                        "--no-sandbox",
+                        "--disable-dev-shm-usage"
+                );
 
-			System.setProperty("webdriver.chrome.driver", chromeDriverPath);
+                driver = new ChromeDriver(options);
+                break;
 
-			ChromeOptions options = new ChromeOptions();
+            default:
+                throw new IllegalStateException("Unexpected browser: " + browserName);
+        }
 
-			options.addArguments("--headless=new", // ✅ new headless (better)
-					"--disable-gpu", "--window-size=1920,1080", // ✅ required in headless
-					"--disable-notifications", "--no-sandbox", "--disable-dev-shm-usage",
-					"--force-device-scale-factor=1", "--high-dpi-support=1");
-
-			driver = new ChromeDriver(options);
-
-			// ❌ REMOVE maximize in headless (does nothing)
-			// driver.manage().window().maximize();
-
-			// ✅ Enable DevTools (useful for full page screenshot / network)
-		}
-			break;
-
-		default:
-			throw new IllegalStateException("Unexpected browser: " + browserName);
-		}
-
-		return driver;
-	}
+        return driver;
+    }
 }
