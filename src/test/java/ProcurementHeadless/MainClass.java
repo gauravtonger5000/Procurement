@@ -28,10 +28,11 @@ public class MainClass {
 //	public MainClass(WebDriver driver ) {
 //		this.driver = driver;
 //	}
-	
+
 	// Use for TestNG
 	public MainClass() {
 	}
+
 	@BeforeClass
 	public void init() throws IOException, EncryptedDocumentException, InterruptedException {
 		driver = driverClass.browserSel(); // Your existing driver factory
@@ -90,7 +91,7 @@ public class MainClass {
 		Sheet sheet4 = workbook.getSheet("Follow Up");
 		Sheet sheet5 = workbook.getSheet("Price Discovery");
 
-		for (int i = 1; i <= sheet2.getLastRowNum(); i++) {
+		for (int i = 5; i <= sheet2.getLastRowNum(); i++) {
 			Row row = sheet2.getRow(i);
 			Row row7 = sheet4.getRow(i);
 			String username = formatter.formatCellValue(row.getCell(0));
@@ -240,35 +241,8 @@ public class MainClass {
 					driver.get(url);
 					reportListener.flushReport();
 
-					/******************************
-					 * Inspection List Page Started
-					 *************************************************************/
-//					
-//					Thread.sleep(500);
-//					loginPage.login(username1, password1);
-//					il.inspectionListDetail(reg_no);
-//					il.inspectionListSearchContent(customer_name, source, reg_no, inspectiontype, new_car_rm, date);
-//					Thread.sleep(500);
-//					il.clickSearchedVehicle(registration_year);
-//					il.contactDetailText(customer_name, mobile_no, email, address, company_name, date, location, source, new_car_rm, remarks);
-//					String previousTabName2 = "";
-//					for (int j = 1; j <= inspectionSheet.getLastRowNum(); j++) {
-//						Row inspectionRow = inspectionSheet.getRow(j);
-//						String tab_name = formatter.formatCellValue(inspectionRow.getCell(7));
-//						String method_type = formatter.formatCellValue(inspectionRow.getCell(8));
-//						String method_name = formatter.formatCellValue(inspectionRow.getCell(9));
-//						String method_value = formatter.formatCellValue(inspectionRow.getCell(10)).trim();
-//						if (!tab_name.equals(previousTabName2)) {
-//							pi.tabName(tab_name);
-//							previousTabName2 = tab_name; // Update the previous tab name
-//						}
-//						il.checkTextContent(method_name, method_value);
-//					}
-//					driver.get(url);
-//					reportListener.flushReport();
-
 					/*********************************************
-					 * Price Discovery Page Started
+					 * * Price Discovery Page Started
 					 ****************************************************/
 					Row row4 = sheet5.getRow(i);
 					String usernameNew = formatter.formatCellValue(row4.getCell(0));
@@ -419,8 +393,7 @@ public class MainClass {
 		if (driver != null)
 			driver.quit();
 	}
-	
-	
+
 	// Uncomment to run as a Normal JAVA
 //	public static void main(String[] args) throws InterruptedException, IOException {
 //		WebDriver driver = null;

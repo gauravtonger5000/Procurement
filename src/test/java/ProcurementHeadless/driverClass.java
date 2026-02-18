@@ -9,16 +9,29 @@ public class driverClass {
 
     public static WebDriver browserSel() throws EncryptedDocumentException, InterruptedException {
 
-        String browserName = System.getProperty("browser", "Web Chrome");
+        String browserName = System.getProperty("browser", "chrome");
+        String headless = System.getProperty("headless", "false");   // default = false (LOCAL)
+
         WebDriver driver;
 
-        switch (browserName) {
+        switch (browserName.toLowerCase()) {
 
-            case "Web Chrome":
+            case "chrome":
+
+            	  // 👉 Path of downloaded chromedriver.exe
+                System.setProperty("webdriver.chrome.driver",
+                        System.getProperty("user.dir") + "\\src\\main\\resources\\drivers\\chromedriver.exe");
 
                 ChromeOptions options = new ChromeOptions();
+                // 👉 Only run headless when passed true
+                if (headless.equalsIgnoreCase("true")) {
+                    options.addArguments("--headless=new");
+                    System.out.println("Running HEADLESS (Jenkins/CI)");
+                } else {
+                    System.out.println("Running NORMAL (Local)");
+                }
+
                 options.addArguments(
-                        "--headless=new",
                         "--disable-gpu",
                         "--window-size=1920,1080",
                         "--disable-notifications",
