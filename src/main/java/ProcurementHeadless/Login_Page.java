@@ -1,4 +1,4 @@
-package ProcurementAllPagesUpdatedHeadless;
+package ProcurementHeadless;
 
 import java.time.Duration;
 import org.openqa.selenium.By;

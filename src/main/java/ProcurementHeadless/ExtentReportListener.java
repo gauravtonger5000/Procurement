@@ -1,4 +1,4 @@
-package ProcurementAllPagesUpdatedHeadless;
+package ProcurementHeadless;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
